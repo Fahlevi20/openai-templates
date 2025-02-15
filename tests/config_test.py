@@ -1,7 +1,7 @@
 from openai import OpenAI
-from model_config import Model
+from config.model_config import Model
 import pytest
-import unittest.mock import patch, MagicMock
+from unittest.mock import patch, MagicMock
 import os
 
 @pytest.fixture
@@ -16,10 +16,17 @@ def mock_openai():
         mock_client.return_value=mock_instance
         mock_instance.chat.completions.create.return_value={"response":"test"}
         yield mock_instance
-    
-model_name= os.environ.get("MODEL_NAME")
 
-client = OpenAI()
-completion= client.chat.completions.create(
-    model=Model(model_name)
+@pytest.fixture
+def test_openai(mock_env,mock_openai):
+    
+    model_name= os.environ.get("MODEL_NAME")
+
+    client = OpenAI()
+    completion= client.chat.completions.create(
+        model=Model(model_name)
 )
+    
+    mock_openai.chat.completions.create.assert_called_once_with(model=Model("test_model"))
+    
+    assert completion == {"response":"test"}
