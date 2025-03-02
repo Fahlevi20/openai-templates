@@ -8,6 +8,9 @@ authors = [
 readme = "README.md"
 requires-python = ">=3.13"
 dependencies = [
+    "openai (>=1.63.0,<2.0.0)",
+    "pytest (>=8.3.4,<9.0.0)",
+    "python-dotenv (>=1.0.1,<2.0.0)"
 ]
 [tool.poetry]
 package-mode=false
