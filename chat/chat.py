@@ -1,5 +1,4 @@
 def chat_message(prompt):
-    prompt=input()
     messages = [
         {'role': "system",
          "content": "You are a helpful assistant."
@@ -10,5 +9,6 @@ def chat_message(prompt):
          }
         
     ]
-    
+
+    return messages    
     
